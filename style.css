@@ -11,7 +11,7 @@ body {
   background-color: #fafafa;
 }
 
-.keypad {
+.calculator__keypad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -19,7 +19,7 @@ body {
   list-style: none;
 }
 
-.keypad-btn {
+.calculator__keypad-btn {
   display: flex;
   align-items: center;
   justify-content: center;
