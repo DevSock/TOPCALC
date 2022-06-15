@@ -1,10 +1,9 @@
 const calculator = {
   displayValue: "0",
   firstOperand: null,
+  secondOperand: null,
   waitingForSecondOperand: false,
   operator: null,
-  firstNumber: null,
-  secondNumber: null,
 };
 
 const add = (a, b) => a + b;
