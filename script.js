@@ -6,10 +6,17 @@ const calculator = {
   operator: null,
 };
 
+const preOperatorElement = document.querySelector(".pre-operator");
+const postOperatorElement = document.querySelector(".post-operator");
+
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
+
+function setDisplayText(displayElement, operand) {
+  displayElement.textContent = operand;
+}
 
 function operate(operator, a, b) {
   switch (operator) {
