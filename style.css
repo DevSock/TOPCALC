@@ -43,11 +43,11 @@ body {
   color: #333;
 }
 
-.pre-operator {
+.top-display {
   font-size: 1.5rem;
 }
 
-.post-operator {
+.bottom-display {
   font-size: 2rem;
 }
 
