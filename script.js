@@ -85,7 +85,9 @@ function handleOperatorClick(event) {
 
   if (!calculator.operator) {
     calculator.operator = operator;
-    displayText = bottomDisplayElement.textContent.concat(targetTextContent);
+    displayText = bottomDisplayElement.textContent.concat(
+      " " + targetTextContent
+    );
     setDisplayText(bottomDisplayElement, displayText);
     return;
   } else if (calculator.secondOperand === null) {
