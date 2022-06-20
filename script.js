@@ -22,7 +22,7 @@ function setDisplayText(displayElement, operand) {
 function handleOperandClick(event) {
   const targetTextContent = event.target.textContent;
 
-  if (!calculator.firstOperand) {
+  if (calculator.firstOperand === null) {
     calculator.firstOperand = +targetTextContent;
     setDisplayText(bottomDisplayElement, calculator.firstOperand);
     return;
@@ -30,7 +30,7 @@ function handleOperandClick(event) {
     calculator.firstOperand = +`${calculator.firstOperand}${targetTextContent}`;
     setDisplayText(bottomDisplayElement, calculator.firstOperand);
     return;
-  } else if (!calculator.secondOperand) {
+  } else if (calculator.secondOperand === null) {
     calculator.secondOperand = +targetTextContent;
     setDisplayText(topDisplayElement, bottomDisplayElement.textContent);
     setDisplayText(bottomDisplayElement, calculator.secondOperand);
@@ -74,7 +74,7 @@ function handleOperatorClick(event) {
     displayText = bottomDisplayElement.textContent.concat(targetTextContent);
     setDisplayText(bottomDisplayElement, displayText);
     return;
-  } else if (!calculator.secondOperand) {
+  } else if (calculator.secondOperand === null) {
     calculator.operator = operator;
     displayText = bottomDisplayElement.textContent
       .slice(0, -1)
