@@ -28,9 +28,36 @@ const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
+const equals = () => calculator.operate();
+function clear() {
+  if (calculator.firstOperand === null) return;
 
-function setDisplayText(displayElement, operand) {
-  displayElement.textContent = operand;
+  if (calculator.secondOperand !== null) {
+    calculator.secondOperand = null;
+    setDisplayText(bottomDisplayElement, topDisplayElement.textContent);
+    setDisplayText(topDisplayElement, "0");
+    return;
+  } else if (calculator.operator) {
+    calculator.operator = null;
+    const displayText = bottomDisplayElement.textContent.slice(0, -2);
+    setDisplayText(bottomDisplayElement, displayText);
+    return;
+  } else {
+    calculator.firstOperand = null;
+    setDisplayText(bottomDisplayElement, "0");
+    return;
+  }
+}
+function clearAll() {
+  calculator.firstOperand = null;
+  calculator.secondOperand = null;
+  calculator.operator = null;
+  setDisplayText(topDisplayElement, "0");
+  setDisplayText(bottomDisplayElement, "0");
+}
+
+function setDisplayText(displayElement, text) {
+  displayElement.textContent = text;
 }
 
 function handleOperandClick(event) {
@@ -76,10 +103,13 @@ function handleOperatorClick(event) {
       operator = divide;
       break;
     case "=":
+      equals();
       return;
     case "c":
+      clear();
       return;
     case "ac":
+      clearAll();
       return;
   }
 
