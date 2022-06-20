@@ -1,8 +1,22 @@
 const calculator = {
-  displayValue: "0",
   firstOperand: null,
   operator: null,
   secondOperand: null,
+  operate: function () {
+    if (this.firstOperand === null || !this.operator) return;
+    if (this.secondOperand === null) {
+      this.operator = null;
+      setDisplayText(bottomDisplayElement, this.firstOperand);
+      return;
+    }
+
+    const result = this.operator(this.firstOperand, this.secondOperand);
+    setDisplayText(topDisplayElement, "0");
+    setDisplayText(bottomDisplayElement, result);
+    this.firstOperand = result;
+    this.secondOperand = null;
+    this.operator = null;
+  },
 };
 
 const topDisplayElement = document.querySelector(".top-display");
@@ -82,23 +96,8 @@ function handleOperatorClick(event) {
     setDisplayText(bottomDisplayElement, displayText);
     return;
   } else {
-    // operate(x, y, z);
-    // handleOperatorClick(event);
-  }
-}
-
-function operate(operator, a, b) {
-  switch (operator) {
-    case "+":
-      return add(a, b);
-    case "-":
-      return subtract(a, b);
-    case "x":
-      return multiply(a, b);
-    case "÷":
-      return divide(a, b);
-    default:
-      return "Error";
+    calculator.operate();
+    handleOperatorClick(event);
   }
 }
 
