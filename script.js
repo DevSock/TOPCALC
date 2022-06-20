@@ -32,7 +32,7 @@ function handleOperandClick(event) {
     return;
   } else if (!calculator.secondOperand) {
     calculator.secondOperand = +targetTextContent;
-    setDisplayText(topDisplayElement, calculator.firstOperand);
+    setDisplayText(topDisplayElement, bottomDisplayElement.textContent);
     setDisplayText(bottomDisplayElement, calculator.secondOperand);
     return;
   } else {
@@ -43,15 +43,59 @@ function handleOperandClick(event) {
   }
 }
 
+function handleOperatorClick(event) {
+  const targetTextContent = event.target.textContent;
+  let displayText = null;
+  let operator = null;
+
+  switch (targetTextContent.toLowerCase()) {
+    case "+":
+      operator = add;
+      break;
+    case "-":
+      operator = subtract;
+      break;
+    case "x":
+      operator = multiply;
+      break;
+    case "÷":
+      operator = divide;
+      break;
+    case "=":
+      return;
+    case "c":
+      return;
+    case "ac":
+      return;
+  }
+
+  if (!calculator.operator) {
+    calculator.operator = operator;
+    displayText = bottomDisplayElement.textContent.concat(targetTextContent);
+    setDisplayText(bottomDisplayElement, displayText);
+    return;
+  } else if (!calculator.secondOperand) {
+    calculator.operator = operator;
+    displayText = bottomDisplayElement.textContent
+      .slice(0, -1)
+      .concat(targetTextContent);
+    setDisplayText(bottomDisplayElement, displayText);
+    return;
+  } else {
+    // operate(x, y, z);
+    // handleOperatorClick(event);
+  }
+}
+
 function operate(operator, a, b) {
   switch (operator) {
     case "+":
       return add(a, b);
     case "-":
       return subtract(a, b);
-    case "*":
+    case "x":
       return multiply(a, b);
-    case "/":
+    case "÷":
       return divide(a, b);
     default:
       return "Error";
@@ -60,4 +104,8 @@ function operate(operator, a, b) {
 
 operands.forEach((element) => {
   element.addEventListener("click", handleOperandClick);
+});
+
+operators.forEach((element) => {
+  element.addEventListener("click", handleOperatorClick);
 });
