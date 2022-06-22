@@ -1,18 +1,29 @@
+const operatorFunctions = {
+  "+": (a, b) => a + b,
+  "-": (a, b) => a - b,
+  x: (a, b) => a * b,
+  "÷": (a, b) => a / b,
+};
+
+const specialOperators = {
+  isSpecialOperator: (key) => (key in specialOperators ? 1 : 0),
+  "=": () => {},
+  ac: () => {},
+  c: () => {},
+  ".": () => {},
+};
+
 const calculator = {
   firstOperand: null,
   secondOperand: null,
   operator: null,
+  calculate: specialOperators["="],
 };
 
 const topDisplayElement = document.querySelector(".top-display");
 const bottomDisplayElement = document.querySelector(".bottom-display");
 const operators = document.querySelectorAll(".operator");
 const operands = document.querySelectorAll(".operand");
-
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
 
 function setDisplayText(text, displayElement, shouldAppend) {
   if (shouldAppend) {
@@ -31,11 +42,20 @@ function updateCalcOperand(value, calcOperand, shouldAppend) {
     : (calculator.secondOperand = newOperand);
 }
 
+function updateCalcOperator(value, operatorFunction, isReplacing) {
+  const currentBottomText = bottomDisplayElement.textContent;
+  calculator.operator = operatorFunction;
+
+  if (isReplacing) {
+    const textToAppend = currentBottomText.slice(0, -1).concat(value);
+    setDisplayText(textToAppend, bottomDisplayElement, false);
+    return;
+  }
+  setDisplayText(` ${value}`, bottomDisplayElement, true);
+}
+
 function handleOperandClick(event) {
   const clickedNumber = event.target.textContent;
-  console.log(
-    `firstOperand: ${calculator.firstOperand}\nsecondOperand: ${calculator.secondOperand}`
-  );
   if (calculator.secondOperand !== null) {
     updateCalcOperand(clickedNumber, 1, true);
     return;
@@ -53,8 +73,25 @@ function handleOperandClick(event) {
 }
 
 function handleOperatorClick(event) {
-  const clickedOperatorText = event.target.textContent;
-  let clickedOperatorFunction;
+  const clickedOperatorText = event.target.textContent.toLowerCase();
+  let clickedOperatorFunction = operatorFunctions[clickedOperatorText];
+
+  if (specialOperators.isSpecialOperator(clickedOperatorText)) {
+    specialOperators[clickedOperatorText]();
+    return;
+  }
+
+  if (calculator.firstOperand === null) return;
+
+  if (calculator.secondOperand !== null) {
+    calculator.calculate();
+    // handleOperatorClick();
+  } else if (calculator.operator !== null) {
+    updateCalcOperator(clickedOperatorText, clickedOperatorFunction, true);
+    return;
+  } else {
+    updateCalcOperator(clickedOperatorText, clickedOperatorFunction, false);
+  }
 }
 
 operands.forEach((element) => {
