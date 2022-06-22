@@ -11,6 +11,15 @@ const calculator = {
       return;
     }
 
+    if (this.operator === divide && this.secondOperand === 0) {
+      setDisplayText(bottomDisplayElement, "~+~+ 42 +~+~");
+      setDisplayText(topDisplayElement, "0");
+      this.firstOperand = null;
+      this.secondOperand = null;
+      this.operator = null;
+      return;
+    }
+
     const prevResult = this.operator(this.firstOperand, this.secondOperand);
     setDisplayText(topDisplayElement, "0");
     setDisplayText(bottomDisplayElement, prevResult);
@@ -126,6 +135,7 @@ function handleOperatorClick(event) {
       clearAll();
       return;
   }
+  if (bottomDisplayElement.textContent === "~+~+ 42 +~+~") return;
 
   if (!calculator.operator) {
     calculator.operator = operator;
