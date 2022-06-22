@@ -2,6 +2,7 @@ const calculator = {
   firstOperand: null,
   operator: null,
   secondOperand: null,
+  prevResult: null,
   operate: function () {
     if (this.firstOperand === null || !this.operator) return;
     if (this.secondOperand === null) {
@@ -10,10 +11,10 @@ const calculator = {
       return;
     }
 
-    const result = this.operator(this.firstOperand, this.secondOperand);
+    const prevResult = this.operator(this.firstOperand, this.secondOperand);
     setDisplayText(topDisplayElement, "0");
-    setDisplayText(bottomDisplayElement, result);
-    this.firstOperand = result;
+    setDisplayText(bottomDisplayElement, prevResult);
+    this.firstOperand = null;
     this.secondOperand = null;
     this.operator = null;
   },
@@ -88,6 +89,19 @@ function handleOperatorClick(event) {
   const targetTextContent = event.target.textContent;
   let displayText = null;
   let operator = null;
+
+  if (calculator.firstOperand === null) {
+    if (bottomDisplayElement.textContent !== "0") {
+      calculator.firstOperand = +bottomDisplayElement.textContent;
+      handleOperatorClick(event);
+    } else {
+      if (!calculator.prevResult) {
+        calculator.firstOperand = 0;
+        handleOperatorClick(event);
+      }
+    }
+    return;
+  }
 
   switch (targetTextContent.toLowerCase()) {
     case "+":
