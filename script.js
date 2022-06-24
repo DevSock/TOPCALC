@@ -15,8 +15,9 @@ const specialOperators = {
         +calculator.firstOperand,
         +calculator.secondOperand
       );
-      updateCalcOperand(result, 0, false);
+      setDisplayText(result, bottomDisplayElement, false);
       setDisplayText("0", topDisplayElement, false);
+      calculator.firstOperand = null;
       calculator.operator = null;
       calculator.secondOperand = null;
       return;
@@ -67,9 +68,11 @@ const operators = document.querySelectorAll(".operator");
 const operands = document.querySelectorAll(".operand");
 
 function setDisplayText(text, displayElement, shouldAppend) {
-  if (displayElement === topDisplayElement) {
-    if (text.charAt(text.length - 3) === ".") text = text.replace(".", "");
-  }
+  if (
+    displayElement === topDisplayElement &&
+    text.charAt(text.length - 3) === "."
+  )
+    text = text.replace(".", "");
 
   if (shouldAppend) {
     const appendedText = displayElement.textContent.concat(text);
@@ -126,7 +129,13 @@ function handleOperatorClick(event) {
     return;
   }
 
-  if (calculator.firstOperand === null) return;
+  if (calculator.firstOperand === null) {
+    if (bottomDisplayElement.textContent !== "0") {
+      calculator.firstOperand = bottomDisplayElement.textContent;
+      handleOperatorClick(event);
+    }
+    return;
+  }
 
   if (calculator.secondOperand !== null) {
     calculator.calculate();
