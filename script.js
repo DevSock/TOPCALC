@@ -11,6 +11,12 @@ const specialOperators = {
     if (calculator.firstOperand === null) return;
 
     if (calculator.secondOperand !== null) {
+      if (calculator.operator === operatorFunctions["÷"]) {
+        specialOperators.ac();
+        setDisplayText("The answer is 42", bottomDisplayElement, false);
+        return;
+      }
+
       const result = calculator.operator(
         +calculator.firstOperand,
         +calculator.secondOperand
@@ -50,7 +56,11 @@ const specialOperators = {
   },
   ".": () => {
     const bottomDisplayText = bottomDisplayElement.textContent;
-    if (bottomDisplayText.includes(".")) return;
+    if (
+      bottomDisplayText.includes(".") ||
+      bottomDisplayText === "The answer is 42"
+    )
+      return;
     setDisplayText(".", bottomDisplayElement, true);
   },
 };
@@ -104,6 +114,7 @@ function updateCalcOperator(value, operatorFunction, isReplacing) {
 
 function handleOperandClick(event) {
   const clickedNumber = event.target.textContent;
+
   if (calculator.secondOperand !== null) {
     updateCalcOperand(clickedNumber, 1, true);
     return;
@@ -128,6 +139,7 @@ function handleOperatorClick(event) {
     specialOperators[clickedOperatorText]();
     return;
   }
+  if (bottomDisplayElement.textContent === "The answer is 42") return;
 
   if (calculator.firstOperand === null) {
     if (bottomDisplayElement.textContent !== "0") {
