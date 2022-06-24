@@ -201,6 +201,7 @@ operators.forEach((element) => {
 });
 
 document.addEventListener("keydown", (e) => {
+  e.preventDefault();
   const spoofedEvent = { target: {} };
   switch (e.code.toLowerCase()) {
     case "digit0":
@@ -278,6 +279,10 @@ document.addEventListener("keydown", (e) => {
     case "period":
     case "numpaddecimal":
       spoofedEvent.target.textContent = ".";
+      handleOperatorClick(spoofedEvent);
+      break;
+    case "backspace":
+      spoofedEvent.target.textContent = "Delete";
       handleOperatorClick(spoofedEvent);
       break;
   }
