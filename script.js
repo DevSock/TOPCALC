@@ -199,3 +199,86 @@ operands.forEach((element) => {
 operators.forEach((element) => {
   element.addEventListener("click", handleOperatorClick);
 });
+
+document.addEventListener("keydown", (e) => {
+  const spoofedEvent = { target: {} };
+  switch (e.code.toLowerCase()) {
+    case "digit0":
+    case "numpad0":
+      spoofedEvent.target.textContent = "0";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit1":
+    case "numpad1":
+      spoofedEvent.target.textContent = "1";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit2":
+    case "numpad2":
+      spoofedEvent.target.textContent = "2";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit3":
+    case "numpad3":
+      spoofedEvent.target.textContent = "3";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit4":
+    case "numpad4":
+      spoofedEvent.target.textContent = "4";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit5":
+    case "numpad5":
+      spoofedEvent.target.textContent = "5";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit6":
+    case "numpad6":
+      spoofedEvent.target.textContent = "6";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit7":
+    case "numpad7":
+      spoofedEvent.target.textContent = "7";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit8":
+    case "numpad8":
+      spoofedEvent.target.textContent = "8";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "digit9":
+    case "numpad9":
+      spoofedEvent.target.textContent = "9";
+      handleOperandClick(spoofedEvent);
+      break;
+    case "minus":
+    case "numpadsubtract":
+      spoofedEvent.target.textContent = "-";
+      handleOperatorClick(spoofedEvent);
+      break;
+    case "numpadadd":
+      spoofedEvent.target.textContent = "+";
+      handleOperatorClick(spoofedEvent);
+      break;
+    case "numpaddmultiply":
+      spoofedEvent.target.textContent = "x";
+      handleOperatorClick(spoofedEvent);
+      break;
+    case "numpaddivide":
+      spoofedEvent.target.textContent = "÷";
+      handleOperatorClick(spoofedEvent);
+      break;
+    case "enter":
+    case "numpadenter":
+      spoofedEvent.target.textContent = "=";
+      handleOperatorClick(spoofedEvent);
+      break;
+    case "period":
+    case "numpaddecimal":
+      spoofedEvent.target.textContent = ".";
+      handleOperatorClick(spoofedEvent);
+      break;
+  }
+});
