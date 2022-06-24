@@ -47,7 +47,11 @@ const specialOperators = {
       setDisplayText("0", bottomDisplayElement, false);
     }
   },
-  ".": () => {},
+  ".": () => {
+    const bottomDisplayText = bottomDisplayElement.textContent;
+    if (bottomDisplayText.includes(".")) return;
+    setDisplayText(".", bottomDisplayElement, true);
+  },
 };
 
 const calculator = {
@@ -63,6 +67,10 @@ const operators = document.querySelectorAll(".operator");
 const operands = document.querySelectorAll(".operand");
 
 function setDisplayText(text, displayElement, shouldAppend) {
+  if (displayElement === topDisplayElement) {
+    if (text.charAt(text.length - 3) === ".") text = text.replace(".", "");
+  }
+
   if (shouldAppend) {
     const appendedText = displayElement.textContent.concat(text);
     displayElement.textContent = appendedText;
