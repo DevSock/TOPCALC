@@ -54,6 +54,38 @@ const specialOperators = {
       setDisplayText("0", bottomDisplayElement, false);
     }
   },
+  delete: () => {
+    if (calculator.firstOperand === null) return;
+
+    const currentOperand =
+      calculator.secondOperand === null
+        ? calculator.firstOperand
+        : calculator.secondOperand;
+
+    if (currentOperand === calculator.secondOperand) {
+      if (currentOperand.length === 1) {
+        calculator.secondOperand = null;
+        const textToUpdate = topDisplayElement.textContent;
+        setDisplayText(textToUpdate, bottomDisplayElement, false);
+        setDisplayText("0", topDisplayElement, false);
+        return;
+      }
+      updateCalcOperand(currentOperand.slice(0, -1), 1, false);
+      return;
+    } else if (calculator.operator !== null) {
+      calculator.operator = null;
+      const textToUpdate = bottomDisplayElement.textContent.slice(0, -2);
+      setDisplayText(textToUpdate, bottomDisplayElement, false);
+      return;
+    } else {
+      if (currentOperand.length === 1) {
+        calculator.firstOperand = null;
+        setDisplayText("0", bottomDisplayElement, false);
+        return;
+      }
+      updateCalcOperand(currentOperand.slice(0, -1), 0, false);
+    }
+  },
   ".": () => {
     const bottomDisplayText = bottomDisplayElement.textContent;
     if (
