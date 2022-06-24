@@ -7,7 +7,24 @@ const operatorFunctions = {
 
 const specialOperators = {
   isSpecialOperator: (key) => (key in specialOperators ? 1 : 0),
-  "=": () => {},
+  "=": () => {
+    if (calculator.secondOperand !== null) {
+      const result = calculator.operator(
+        +calculator.firstOperand,
+        +calculator.secondOperand
+      );
+      updateCalcOperand(result, 0, false);
+      setDisplayText("0", topDisplayElement, false);
+      calculator.operator = null;
+      calculator.secondOperand = null;
+      return;
+    } else if (calculator.operator !== null) {
+      const textToUpdate = bottomDisplayElement.textContent.slice(0, -2);
+      setDisplayText(textToUpdate, bottomDisplayElement, false);
+      calculator.operator = null;
+      return;
+    } else return;
+  },
   ac: () => {},
   c: () => {},
   ".": () => {},
@@ -85,7 +102,7 @@ function handleOperatorClick(event) {
 
   if (calculator.secondOperand !== null) {
     calculator.calculate();
-    // handleOperatorClick();
+    handleOperatorClick(event);
   } else if (calculator.operator !== null) {
     updateCalcOperator(clickedOperatorText, clickedOperatorFunction, true);
     return;
