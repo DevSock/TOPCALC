@@ -8,6 +8,8 @@ const operatorFunctions = {
 const specialOperators = {
   isSpecialOperator: (key) => (key in specialOperators ? 1 : 0),
   "=": () => {
+    if (calculator.firstOperand === null) return;
+
     if (calculator.secondOperand !== null) {
       const result = calculator.operator(
         +calculator.firstOperand,
@@ -23,10 +25,28 @@ const specialOperators = {
       setDisplayText(textToUpdate, bottomDisplayElement, false);
       calculator.operator = null;
       return;
-    } else return;
+    }
   },
-  ac: () => {},
-  c: () => {},
+  ac: () => {
+    calculator.firstOperand = null;
+    calculator.operator = null;
+    calculator.secondOperand = null;
+    setDisplayText("0", topDisplayElement, false);
+    setDisplayText("0", bottomDisplayElement, false);
+  },
+  c: () => {
+    if (calculator.secondOperand !== null) {
+      calculator.secondOperand = null;
+      const textToUpdate = topDisplayElement.textContent;
+      setDisplayText(textToUpdate, bottomDisplayElement, false);
+      setDisplayText("0", topDisplayElement, false);
+      return;
+    } else {
+      if (calculator.operator !== null) calculator.operator = null;
+      if (calculator.firstOperand !== null) calculator.firstOperand = null;
+      setDisplayText("0", bottomDisplayElement, false);
+    }
+  },
   ".": () => {},
 };
 
