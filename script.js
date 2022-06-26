@@ -17,10 +17,15 @@ const specialOperators = {
         return;
       }
 
-      const result = calculator.operator(
+      let result = `${calculator.operator(
         +calculator.firstOperand,
         +calculator.secondOperand
-      );
+      )}`;
+
+      if (result.length >= 15 && result.includes(".")) {
+        result = `${Math.round(+result * 1000) / 1000}`;
+      }
+
       setDisplayText(result, bottomDisplayElement, false);
       setDisplayText("0", topDisplayElement, false);
       calculator.firstOperand = null;
@@ -125,6 +130,8 @@ function setDisplayText(text, displayElement, shouldAppend) {
 }
 
 function updateCalcOperand(value, calcOperand, shouldAppend) {
+  if (shouldAppend && bottomDisplayElement.textContent.length >= 15) return;
+
   setDisplayText(value, bottomDisplayElement, shouldAppend);
   const newOperand = `${+bottomDisplayElement.textContent}`;
   !calcOperand
