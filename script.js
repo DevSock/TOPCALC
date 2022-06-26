@@ -281,7 +281,7 @@ document.addEventListener("keydown", (e) => {
       spoofedEvent.target.textContent = "+";
       handleOperatorClick(spoofedEvent);
       break;
-    case "numpaddmultiply":
+    case "numpadmultiply":
       e.preventDefault();
       spoofedEvent.target.textContent = "x";
       handleOperatorClick(spoofedEvent);
