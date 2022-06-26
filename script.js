@@ -208,87 +208,103 @@ operators.forEach((element) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  e.preventDefault();
   const spoofedEvent = { target: {} };
   switch (e.code.toLowerCase()) {
     case "digit0":
     case "numpad0":
+      e.preventDefault();
       spoofedEvent.target.textContent = "0";
       handleOperandClick(spoofedEvent);
       break;
     case "digit1":
     case "numpad1":
+      e.preventDefault();
       spoofedEvent.target.textContent = "1";
       handleOperandClick(spoofedEvent);
       break;
     case "digit2":
     case "numpad2":
+      e.preventDefault();
       spoofedEvent.target.textContent = "2";
       handleOperandClick(spoofedEvent);
       break;
     case "digit3":
     case "numpad3":
+      e.preventDefault();
       spoofedEvent.target.textContent = "3";
       handleOperandClick(spoofedEvent);
       break;
     case "digit4":
     case "numpad4":
+      e.preventDefault();
       spoofedEvent.target.textContent = "4";
       handleOperandClick(spoofedEvent);
       break;
     case "digit5":
     case "numpad5":
+      e.preventDefault();
       spoofedEvent.target.textContent = "5";
       handleOperandClick(spoofedEvent);
       break;
     case "digit6":
     case "numpad6":
+      e.preventDefault();
       spoofedEvent.target.textContent = "6";
       handleOperandClick(spoofedEvent);
       break;
     case "digit7":
     case "numpad7":
+      e.preventDefault();
       spoofedEvent.target.textContent = "7";
       handleOperandClick(spoofedEvent);
       break;
     case "digit8":
     case "numpad8":
+      e.preventDefault();
       spoofedEvent.target.textContent = "8";
       handleOperandClick(spoofedEvent);
       break;
     case "digit9":
     case "numpad9":
+      e.preventDefault();
       spoofedEvent.target.textContent = "9";
       handleOperandClick(spoofedEvent);
       break;
     case "minus":
     case "numpadsubtract":
+      e.preventDefault();
       spoofedEvent.target.textContent = "-";
       handleOperatorClick(spoofedEvent);
       break;
     case "numpadadd":
+      e.preventDefault();
       spoofedEvent.target.textContent = "+";
       handleOperatorClick(spoofedEvent);
       break;
     case "numpaddmultiply":
+      e.preventDefault();
       spoofedEvent.target.textContent = "x";
       handleOperatorClick(spoofedEvent);
       break;
     case "numpaddivide":
+      e.preventDefault();
       spoofedEvent.target.textContent = "÷";
       handleOperatorClick(spoofedEvent);
       break;
     case "enter":
     case "numpadenter":
+      e.preventDefault();
       spoofedEvent.target.textContent = "=";
       handleOperatorClick(spoofedEvent);
       break;
     case "period":
     case "numpaddecimal":
+      e.preventDefault();
       spoofedEvent.target.textContent = ".";
       handleOperatorClick(spoofedEvent);
       break;
     case "backspace":
+      e.preventDefault();
       spoofedEvent.target.textContent = "Delete";
       handleOperatorClick(spoofedEvent);
       break;
